@@ -3,4 +3,4 @@
 #include <iostream>
 #include <string>
 using namespace std;
-string generate_brain_trainer(int amount);
+string generate_brain_trainer(int amount, char lang);
