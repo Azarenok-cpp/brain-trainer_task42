@@ -3,10 +3,11 @@
 int generate_first_type_problem();
 int generate_second_type_problem();
 
+string get_feedback_from_accuracy(int accuracy_percentage, char lang);
+
 int get_random(int a, int b) {
 	return rand() % (b - a + 1) + a;
 }
-string get_feedback_from_accuracy(int accuracy_percentage, char lang);
 
 string generate_brain_trainer(int amount, char lang) {
 	const string MISTAKE_MSG = lang == 'E' ? "A mistake was made. Try again!\n" : "Îøèáêà! Ïîïğîáóé åù¸ ğàç.\n";
@@ -113,9 +114,8 @@ string get_feedback_from_accuracy(int accuracy_percentage, char lang) {
 int generate_first_type_problem() { //a-b+c
 	int a, b, c;
 
-	a = get_random(2, 9);
-
 	do {
+		a = get_random(2, 9);
 		b = get_random(1, a - 1);
 	} while (b >= a);
 
@@ -128,17 +128,11 @@ int generate_first_type_problem() { //a-b+c
 int generate_second_type_problem() { //a+b-c
 	int a, b, c;
 
-	a = get_random(1, 9);
-
 	do {
+		a = get_random(1, 9);
 		b = get_random(1, 9);
-	} while (b == a);
-
-	do {
 		c = get_random(1, 9);
-	} while (c >= (a + b) || c == a || c == b);
+	} while (c >= a + b || c == a || c == b);
 
-	int numbers = a * 100 + b * 10 + c;
-	return numbers;
-
+	return a * 100 + b * 10 + c;
 }
