@@ -2,7 +2,6 @@
 
 int generate_first_type_problem();
 int generate_second_type_problem();
-
 string get_feedback(int accuracy_percentage, double duration, char lang);
 
 int get_random(int a, int b) {
@@ -10,6 +9,7 @@ int get_random(int a, int b) {
 }
 
 string generate_brain_trainer(int amount, char lang) {
+	srand(time(0));
 	string MISTAKE_MSG;
 	string YOUR_ACCURACY;
 	string YOUR_TIME;
@@ -31,8 +31,6 @@ string generate_brain_trainer(int amount, char lang) {
 		SECONDS_PER_TASK = " секунд на пример.";
 	}
 
-	srand(time(0));
-
 	if (amount <= 0) {
 		return MISTAKE_MSG;
 	}
@@ -40,10 +38,10 @@ string generate_brain_trainer(int amount, char lang) {
 	int start_time = time(0);
 	double mistakes = 0;
 
-
 	for (int i = 0; i < amount; i++)
 	{
 		system("cls");
+		bool mistake_made_before = false;
 		int problem;
 		bool problem_type = get_random(0, 1);
 
@@ -58,23 +56,25 @@ string generate_brain_trainer(int amount, char lang) {
 		int b = (problem / 10) % 10;
 		int c = problem % 10;
 
-	mistake:
-		cout << a << (problem_type ? " - " : " + ") << b
-			<< (problem_type ? " + " : " - ") << c << endl;
+		while (true) {
+			cout << a << (problem_type ? " - " : " + ") << b
+				<< (problem_type ? " + " : " - ") << c << endl;
 
-		int right_answer = problem_type ? a - b + c
-			: a + b - c;
+			int right_answer = problem_type ? a - b + c : a + b - c;
 
-		int user_input;
+			int user_input;
+			cin >> user_input;
 
-		cin >> user_input;
+			if (user_input != right_answer) {
+				mistakes += mistake_made_before ? 0 : 1;
+				cout << MISTAKE_MSG;
+				continue; 
+			}
 
-		if (user_input != right_answer) {
-			mistakes++;
-			cout << MISTAKE_MSG;
-			goto mistake;
+			break;
 		}
 	}
+
 	system("cls");
 
 	int duration = time(0) - start_time;
@@ -82,7 +82,7 @@ string generate_brain_trainer(int amount, char lang) {
 	int minutes = duration / 60;
 	int seconds = duration % 60;
 
-	string time = (minutes < 10 ? "0" + to_string(minutes) : to_string(minutes)) + ":" +
+	string formatted_time = (minutes < 10 ? "0" + to_string(minutes) : to_string(minutes)) + ":" +
 		(seconds < 10 ? "0" + to_string(seconds) : to_string(seconds));
 
 	int accuracy_percentage = (1.0 - mistakes / amount) * 100;
@@ -90,9 +90,7 @@ string generate_brain_trainer(int amount, char lang) {
 	string msg = get_feedback(accuracy_percentage, duration / amount, lang);
 
 	msg += YOUR_ACCURACY + to_string(accuracy_percentage) + "%.\n";
-	msg += YOUR_TIME + time + ITS_ABOUT + to_string(duration / amount) + SECONDS_PER_TASK;
-
-
+	msg += YOUR_TIME + formatted_time + ITS_ABOUT + to_string(duration / amount) + SECONDS_PER_TASK;
 
 	return msg;
 }
@@ -100,7 +98,6 @@ string generate_brain_trainer(int amount, char lang) {
 string get_feedback(int accuracy_percentage, double time_per_task, char lang) {
 	string GENIUS, AMAZING, GR_JOB, WELL_DONE, NOT_BAD, OK, DOESNT_MEET_EXPECTATIONS, ERROR;
 	string TIME_BEST, TIME_EXCELLENT, TIME_GOOD, TIME_NOT_BAD, TIME_NORMAL, TIME_POOR;
-
 
 	if (lang == 'E') {
 		GENIUS = "Genius! ";
@@ -135,7 +132,6 @@ string get_feedback(int accuracy_percentage, double time_per_task, char lang) {
 		TIME_POOR = "Не очень. ";
 	}
 
-
 	string feedback;
 	if (accuracy_percentage >= 95) {
 		feedback = get_random(0, 1) ? GENIUS : AMAZING;
@@ -152,7 +148,6 @@ string get_feedback(int accuracy_percentage, double time_per_task, char lang) {
 	else {
 		feedback = DOESNT_MEET_EXPECTATIONS;
 	}
-
 
 	if (time_per_task <= 2.0) {
 		feedback += TIME_BEST;

@@ -1,6 +1,6 @@
 #include "logic.h"
-/*		v.1.0
-		Azarenok Rodion Maximovich, P13024, 15.02.2025	*/
+/*		v.2.2
+		Azarenok Rodion Maximovich, P13024, 15.02.2025 — 09.03.2025*/
 using namespace std;
 
 
@@ -23,13 +23,12 @@ int main() {
 
 	if (language_choose) {
 		INPUT_AMOUNT = "Input amount of problems to solve: ";
-		PLAY_AGAIN = "\nIf you want to play again input 1, or any other symbol to exit:\n";
+		PLAY_AGAIN = "\nIf you want to play again input 1, or any other number to exit:\n";
 	}
 	else {
 		INPUT_AMOUNT = "Введите количество примеров для решения: ";
-		PLAY_AGAIN = "Если хотите сыграть ещё раз, введите 1, или любой другой символ чтобы выйти: ";
+		PLAY_AGAIN = "Если хотите сыграть ещё раз, введите 1, или любое другое число чтобы выйти: ";
 	}
-
 
 	cout << INPUT_AMOUNT;
 	cin >> amount;
