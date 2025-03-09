@@ -3,19 +3,33 @@
 int generate_first_type_problem();
 int generate_second_type_problem();
 
-string get_feedback_from_accuracy(int accuracy_percentage, char lang);
+string get_feedback(int accuracy_percentage, double duration, char lang);
 
 int get_random(int a, int b) {
 	return rand() % (b - a + 1) + a;
 }
 
 string generate_brain_trainer(int amount, char lang) {
-	const string MISTAKE_MSG = lang == 'E' ? "A mistake was made. Try again!\n" : "Ошибка! Попробуй ещё раз.\n";
-	const string YOUR_ACCURACY = lang == 'E' ? "Your accuracy is " : "Ваша точность составила ";
-	const string YOUR_TIME = lang == 'E' ? "Your time: " : "Ваше время: ";
-	const string ITS_ABOUT = lang == 'E' ? ".\nIt is about " : ".\n Это порядка ";
-	const string SECONDS_P_TASK = lang == 'E' ? " second per task." : " секунд на пример.";
+	string MISTAKE_MSG;
+	string YOUR_ACCURACY;
+	string YOUR_TIME;
+	string ITS_ABOUT;
+	string SECONDS_PER_TASK;
 
+	if (lang == 'E') {
+		MISTAKE_MSG = "A mistake was made. Try again!\n";
+		YOUR_ACCURACY = "Your accuracy is ";
+		YOUR_TIME = "Your time: ";
+		ITS_ABOUT = ".\nIt is about ";
+		SECONDS_PER_TASK = " second per task.";
+	}
+	else {
+		MISTAKE_MSG = "Ошибка! Попробуй ещё раз.\n";
+		YOUR_ACCURACY = "Ваша точность составила ";
+		YOUR_TIME = "Ваше время: ";
+		ITS_ABOUT = ".\n Это порядка ";
+		SECONDS_PER_TASK = " секунд на пример.";
+	}
 
 	srand(time(0));
 
@@ -73,42 +87,93 @@ string generate_brain_trainer(int amount, char lang) {
 
 	int accuracy_percentage = (1.0 - mistakes / amount) * 100;
 
-	string msg = get_feedback_from_accuracy(accuracy_percentage, lang);
+	string msg = get_feedback(accuracy_percentage, duration / amount, lang);
 
 	msg += YOUR_ACCURACY + to_string(accuracy_percentage) + "%.\n";
-	msg += YOUR_TIME + time + ITS_ABOUT + to_string(duration / amount) + SECONDS_P_TASK;
+	msg += YOUR_TIME + time + ITS_ABOUT + to_string(duration / amount) + SECONDS_PER_TASK;
 
 
 
 	return msg;
 }
 
-string get_feedback_from_accuracy(int accuracy_percentage, char lang) {
-	const string GENIUS = lang == 'E' ? "Genius! " : "Гений! ";
-	const string AMAZING = lang == 'E' ? "Amazing! " : "Потрясающе! ";
-	const string GR_JOB = lang == 'E' ? "Great job! " : "Отличная работа. ";
-	const string WELL_DONE = lang == 'E' ? "Well-done! " : "Очень хорошо. ";
-	const string NOT_BAD = lang == 'E' ? "Not bad " : "Неплохо. ";
-	const string OK = lang == 'E' ? "OK. " : "Удовлитворительно. ";
-	const string DOESNT_MEET_EXPECTATIONS = lang == 'E' ? "The result doesn't meet our expectations. " : "Результаты не соответствуют ожиданиям. ";
-	const string ERROR = lang == 'E' ? "Failed to get feedback. " : "Ошибка при получении обратной связи. ";
+string get_feedback(int accuracy_percentage, double time_per_task, char lang) {
+	string GENIUS, AMAZING, GR_JOB, WELL_DONE, NOT_BAD, OK, DOESNT_MEET_EXPECTATIONS, ERROR;
+	string TIME_BEST, TIME_EXCELLENT, TIME_GOOD, TIME_NOT_BAD, TIME_NORMAL, TIME_POOR;
 
+
+	if (lang == 'E') {
+		GENIUS = "Genius! ";
+		AMAZING = "Amazing! ";
+		GR_JOB = "Great job! ";
+		WELL_DONE = "Well-done! ";
+		NOT_BAD = "Not bad ";
+		OK = "OK. ";
+		DOESNT_MEET_EXPECTATIONS = "The result doesn't meet our expectations. ";
+		ERROR = "Failed to get feedback. ";
+		TIME_BEST = "Best time! ";
+		TIME_EXCELLENT = "Excellent time! ";
+		TIME_GOOD = "Good time! ";
+		TIME_NOT_BAD = "Not bad time! ";
+		TIME_NORMAL = "Normal time. ";
+		TIME_POOR = "Poor time. ";
+	}
+	else {
+		GENIUS = "Гений! ";
+		AMAZING = "Потрясающе! ";
+		GR_JOB = "Отличная работа. ";
+		WELL_DONE = "Очень хорошо. ";
+		NOT_BAD = "Неплохо. ";
+		OK = "Удовлетворительно. ";
+		DOESNT_MEET_EXPECTATIONS = "Результаты не соответствуют ожиданиям. ";
+		ERROR = "Ошибка при получении обратной связи. ";
+		TIME_BEST = "Лучшее время! ";
+		TIME_EXCELLENT = "Отличное время! ";
+		TIME_GOOD = "Хорошее время! ";
+		TIME_NOT_BAD = "Неплохое время! ";
+		TIME_NORMAL = "Нормальное время. ";
+		TIME_POOR = "Не очень. ";
+	}
+
+
+	string feedback;
 	if (accuracy_percentage >= 95) {
-		return get_random(0, 1) ? GENIUS : AMAZING;
+		feedback = get_random(0, 1) ? GENIUS : AMAZING;
 	}
-	if (accuracy_percentage >= 85 && accuracy_percentage < 95) {
-		return get_random(0, 1) ? GR_JOB : WELL_DONE;
+	else if (accuracy_percentage >= 85) {
+		feedback = get_random(0, 1) ? GR_JOB : WELL_DONE;
 	}
-	if (accuracy_percentage >= 70 && accuracy_percentage < 85) {
-		return NOT_BAD;
+	else if (accuracy_percentage >= 70) {
+		feedback = NOT_BAD;
 	}
-	if (accuracy_percentage >= 50 && accuracy_percentage < 70) {
-		return OK;
+	else if (accuracy_percentage >= 50) {
+		feedback = OK;
 	}
-	if (accuracy_percentage < 50) {
-		return DOESNT_MEET_EXPECTATIONS;
+	else {
+		feedback = DOESNT_MEET_EXPECTATIONS;
 	}
-	return ERROR;
+
+
+	if (time_per_task <= 2.0) {
+		feedback += TIME_BEST;
+	}
+	else if (time_per_task > 2.0 && time_per_task <= 2.3) {
+		feedback += TIME_EXCELLENT;
+	}
+	else if (time_per_task > 2.3 && time_per_task <= 2.5) {
+		feedback += TIME_GOOD;
+	}
+	else if (time_per_task > 2.5 && time_per_task <= 2.7) {
+		feedback += TIME_NOT_BAD;
+	}
+	else if (time_per_task > 2.7 && time_per_task <= 3.0) {
+		feedback += TIME_NORMAL;
+	}
+	else {
+		feedback += TIME_POOR;
+	}
+
+	return feedback;
 }
 
 int generate_first_type_problem() { //a-b+c
@@ -117,12 +182,10 @@ int generate_first_type_problem() { //a-b+c
 	do {
 		a = get_random(2, 9);
 		b = get_random(1, a - 1);
-	} while (b >= a);
+		c = get_random(1, 9);
+	} while (b >= a || b == c);
 
-	c = get_random(1, 9);
-
-	int numbers = a * 100 + b * 10 + c;
-	return numbers;
+	return a * 100 + b * 10 + c;
 }
 
 int generate_second_type_problem() { //a+b-c
