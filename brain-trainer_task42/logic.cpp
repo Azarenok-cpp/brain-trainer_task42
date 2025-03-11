@@ -10,29 +10,29 @@ int get_random(int a, int b) {
 
 string generate_brain_trainer(int amount, char lang) {
 	srand(time(0));
-	string MISTAKE_MSG;
-	string YOUR_ACCURACY;
-	string YOUR_TIME;
-	string ITS_ABOUT;
-	string SECONDS_PER_TASK;
+	string mistake_msg;
+	string your_accuracy;
+	string your_time;
+	string its_about;
+	string seconds_per_task;
 
 	if (lang == 'E') {
-		MISTAKE_MSG = "A mistake was made. Try again!\n";
-		YOUR_ACCURACY = "Your accuracy is ";
-		YOUR_TIME = "Your time: ";
-		ITS_ABOUT = ".\nIt is about ";
-		SECONDS_PER_TASK = " second per task.";
+		mistake_msg = "A mistake was made. Try again!\n";
+		your_accuracy = "Your accuracy is ";
+		your_time = "Your time: ";
+		its_about = ".\nIt is about ";
+		seconds_per_task = " second per task.";
 	}
 	else {
-		MISTAKE_MSG = "Ошибка! Попробуй ещё раз.\n";
-		YOUR_ACCURACY = "Ваша точность составила ";
-		YOUR_TIME = "Ваше время: ";
-		ITS_ABOUT = ".\n Это порядка ";
-		SECONDS_PER_TASK = " секунд на пример.";
+		mistake_msg = "Ошибка! Попробуй ещё раз.\n";
+		your_accuracy = "Ваша точность составила ";
+		your_time = "Ваше время: ";
+		its_about = ".\n Это порядка ";
+		seconds_per_task = " секунд на пример.";
 	}
 
 	if (amount <= 0) {
-		return MISTAKE_MSG;
+		return mistake_msg;
 	}
 
 	int start_time = time(0);
@@ -66,8 +66,7 @@ string generate_brain_trainer(int amount, char lang) {
 				mistakes += 1;
 			}
 
-			cout << MISTAKE_MSG;
-
+			cout << mistake_msg;
 		}
 	}
 
@@ -75,21 +74,20 @@ string generate_brain_trainer(int amount, char lang) {
 
 	system("cls");
 
-
-
 	int minutes = duration / 60;
 	int seconds = duration % 60;
 
 	string formatted_time = (minutes < 10 ? "0" + to_string(minutes) : to_string(minutes)) + ":" +
 		(seconds < 10 ? "0" + to_string(seconds) : to_string(seconds));
 
+
 	int accuracy_percentage = (1.0 - mistakes / amount) * 100;
 
 	string msg = get_feedback_by_accuracy(accuracy_percentage, lang);
 	msg += get_feedback_by_time(duration / amount, lang);
 
-	msg += YOUR_ACCURACY + to_string(accuracy_percentage) + "%.\n";
-	msg += YOUR_TIME + formatted_time + ITS_ABOUT + to_string(duration / amount) + SECONDS_PER_TASK;
+	msg += your_accuracy + to_string(accuracy_percentage) + "%.\n";
+	msg += your_time + formatted_time + its_about + to_string(duration / amount) + seconds_per_task;
 
 	return msg;
 }
