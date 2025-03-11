@@ -1,4 +1,4 @@
-#include "logic.h"
+п»ї#include "logic.h"
 
 int generate_first_type_problem();
 int generate_second_type_problem();
@@ -24,11 +24,11 @@ string generate_brain_trainer(int amount, char lang) {
 		SECONDS_PER_TASK = " second per task.";
 	}
 	else {
-		MISTAKE_MSG = "Ошибка! Попробуй ещё раз.\n";
-		YOUR_ACCURACY = "Ваша точность составила ";
-		YOUR_TIME = "Ваше время: ";
-		ITS_ABOUT = ".\n Это порядка ";
-		SECONDS_PER_TASK = " секунд на пример.";
+		MISTAKE_MSG = "РћС€РёР±РєР°! РџРѕРїСЂРѕР±СѓР№ РµС‰С‘ СЂР°Р·.\n";
+		YOUR_ACCURACY = "Р’Р°С€Р° С‚РѕС‡РЅРѕСЃС‚СЊ СЃРѕСЃС‚Р°РІРёР»Р° ";
+		YOUR_TIME = "Р’Р°С€Рµ РІСЂРµРјСЏ: ";
+		ITS_ABOUT = ".\n Р­С‚Рѕ РїРѕСЂСЏРґРєР° ";
+		SECONDS_PER_TASK = " СЃРµРєСѓРЅРґ РЅР° РїСЂРёРјРµСЂ.";
 	}
 
 	if (amount <= 0) {
@@ -116,20 +116,20 @@ string get_feedback(int accuracy_percentage, double time_per_task, char lang) {
 		TIME_POOR = "Poor time. ";
 	}
 	else {
-		GENIUS = "Гений! ";
-		AMAZING = "Потрясающе! ";
-		GR_JOB = "Отличная работа. ";
-		WELL_DONE = "Очень хорошо. ";
-		NOT_BAD = "Неплохо. ";
-		OK = "Удовлетворительно. ";
-		DOESNT_MEET_EXPECTATIONS = "Результаты не соответствуют ожиданиям. ";
-		ERROR = "Ошибка при получении обратной связи. ";
-		TIME_BEST = "Лучшее время! ";
-		TIME_EXCELLENT = "Отличное время! ";
-		TIME_GOOD = "Хорошее время! ";
-		TIME_NOT_BAD = "Неплохое время! ";
-		TIME_NORMAL = "Нормальное время. ";
-		TIME_POOR = "Не очень. ";
+		GENIUS = "Р“РµРЅРёР№! ";
+		AMAZING = "РџРѕС‚СЂСЏСЃР°СЋС‰Рµ! ";
+		GR_JOB = "РћС‚Р»РёС‡РЅР°СЏ СЂР°Р±РѕС‚Р°. ";
+		WELL_DONE = "РћС‡РµРЅСЊ С…РѕСЂРѕС€Рѕ. ";
+		NOT_BAD = "РќРµРїР»РѕС…Рѕ. ";
+		OK = "РЈРґРѕРІР»РµС‚РІРѕСЂРёС‚РµР»СЊРЅРѕ. ";
+		DOESNT_MEET_EXPECTATIONS = "Р РµР·СѓР»СЊС‚Р°С‚С‹ РЅРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‚ РѕР¶РёРґР°РЅРёСЏРј. ";
+		ERROR = "РћС€РёР±РєР° РїСЂРё РїРѕР»СѓС‡РµРЅРёРё РѕР±СЂР°С‚РЅРѕР№ СЃРІСЏР·Рё. ";
+		TIME_BEST = "Р›СѓС‡С€РµРµ РІСЂРµРјСЏ! ";
+		TIME_EXCELLENT = "РћС‚Р»РёС‡РЅРѕРµ РІСЂРµРјСЏ! ";
+		TIME_GOOD = "РҐРѕСЂРѕС€РµРµ РІСЂРµРјСЏ! ";
+		TIME_NOT_BAD = "РќРµРїР»РѕС…РѕРµ РІСЂРµРјСЏ! ";
+		TIME_NORMAL = "РќРѕСЂРјР°Р»СЊРЅРѕРµ РІСЂРµРјСЏ. ";
+		TIME_POOR = "РќРµ РѕС‡РµРЅСЊ. ";
 	}
 
 	string feedback;

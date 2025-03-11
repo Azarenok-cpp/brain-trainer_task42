@@ -1,6 +1,6 @@
-#include "logic.h"
+п»ї#include "logic.h"
 /*		v.2.2
-		Azarenok Rodion Maximovich, P13024, 15.02.2025 — 09.03.2025*/
+		Azarenok Rodion Maximovich, P13024, 15.02.2025 вЂ” 09.03.2025*/
 using namespace std;
 
 
@@ -10,7 +10,7 @@ int main() {
 	setlocale(LC_ALL, "RU-ru");
 
 	system("cls");
-	cout << "Choose language / Выберите язык (0-RUS, 1-ENG): ";
+	cout << "Choose language / Р’С‹Р±РµСЂРёС‚Рµ СЏР·С‹Рє (0-RUS, 1-ENG): ";
 	
 	cin >> language_choose;
 
@@ -26,8 +26,8 @@ int main() {
 		PLAY_AGAIN = "\nIf you want to play again input 1, or any other number to exit:\n";
 	}
 	else {
-		INPUT_AMOUNT = "Введите количество примеров для решения: ";
-		PLAY_AGAIN = "Если хотите сыграть ещё раз, введите 1, или любое другое число чтобы выйти: ";
+		INPUT_AMOUNT = "Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРёРјРµСЂРѕРІ РґР»СЏ СЂРµС€РµРЅРёСЏ: ";
+		PLAY_AGAIN = "Р•СЃР»Рё С…РѕС‚РёС‚Рµ СЃС‹РіСЂР°С‚СЊ РµС‰С‘ СЂР°Р·, РІРІРµРґРёС‚Рµ 1, РёР»Рё Р»СЋР±РѕРµ РґСЂСѓРіРѕРµ С‡РёСЃР»Рѕ С‡С‚РѕР±С‹ РІС‹Р№С‚Рё: ";
 	}
 
 	cout << INPUT_AMOUNT;
