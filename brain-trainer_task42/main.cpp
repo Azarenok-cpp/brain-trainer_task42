@@ -9,44 +9,47 @@ int main() {
 	int language_choose;
 	setlocale(LC_ALL, "RU-ru");
 
-	system("cls");
-	cout << "Choose language / Выберите язык (0-RUS, 1-ENG): ";
-	
-	cin >> language_choose;
+	while (true) {
+		system("cls");
+		cout << "Choose language / Выберите язык (0-RUS, 1-ENG): ";
 
-	if (language_choose != 0 && language_choose != 1) {
-		main();
+		cin >> language_choose;
+
+		if (language_choose != 0 && language_choose != 1) {
+			cout << "User unput invalid!";
+		}
+
+		string input_amount;
+		string play_again;
+
+		if (language_choose) {
+			input_amount = "Input amount of problems to solve: ";
+			play_again = "\nIf you want to play again input 1, or any other number to exit:\n";
+		}
+		else {
+			input_amount = "Введите количество примеров для решения: ";
+			play_again = "Если хотите сыграть ещё раз, введите 1, или любое другое число чтобы выйти: ";
+		}
+
+		cout << input_amount;
+		cin >> amount;
+
+		system("pause");
+
+		system("cls");
+
+		cout << generate_brain_trainer(amount, language_choose ? 'E' : 'R');
+
+		cout << play_again;
+
+		int choice;
+		cin >> choice;
+
+		if (choice != 1) {
+			break;
+		}
+
+		
 	}
-
-	string INPUT_AMOUNT;
-	string PLAY_AGAIN;
-
-	if (language_choose) {
-		INPUT_AMOUNT = "Input amount of problems to solve: ";
-		PLAY_AGAIN = "\nIf you want to play again input 1, or any other number to exit:\n";
-	}
-	else {
-		INPUT_AMOUNT = "Введите количество примеров для решения: ";
-		PLAY_AGAIN = "Если хотите сыграть ещё раз, введите 1, или любое другое число чтобы выйти: ";
-	}
-
-	cout << INPUT_AMOUNT;
-	cin >> amount;
-
-	system("pause");
-
-	system("cls");
-
-	cout << generate_brain_trainer(amount, language_choose ? 'E' : 'R');
-
-	cout << PLAY_AGAIN;
-
-	int choice;
-	cin >> choice;
-
-	if (choice == 1) {
-		main();
-	}
-
 	return 0;
 }
