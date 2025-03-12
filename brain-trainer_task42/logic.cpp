@@ -15,6 +15,7 @@ string generate_brain_trainer(int amount, char lang) {
 	string your_time;
 	string its_about;
 	string seconds_per_task;
+	string tasks_amount;
 
 	if (lang == 'E') {
 		mistake_msg = "A mistake was made. Try again!\n";
@@ -22,13 +23,16 @@ string generate_brain_trainer(int amount, char lang) {
 		your_time = "Your time: ";
 		its_about = ".\nIt is about ";
 		seconds_per_task = " second per task.";
+		tasks_amount = " Total amount: ";
+		
 	}
 	else {
 		mistake_msg = "Ошибка! Попробуй ещё раз.\n";
 		your_accuracy = "Ваша точность составила ";
 		your_time = "Ваше время: ";
-		its_about = ".\n Это порядка ";
+		its_about = ".\nЭто порядка ";
 		seconds_per_task = " секунд на пример.";
+		tasks_amount = " Всего примеров: ";
 	}
 
 	if (amount <= 0) {
@@ -88,6 +92,7 @@ string generate_brain_trainer(int amount, char lang) {
 
 	msg += your_accuracy + to_string(accuracy_percentage) + "%.\n";
 	msg += your_time + formatted_time + its_about + to_string(duration / amount) + seconds_per_task;
+	msg += tasks_amount +to_string(amount) + "\n";
 
 	return msg;
 }
