@@ -7,6 +7,7 @@ using namespace std;
 int main() {
 	int amount;	
 	int language_choose;
+	int max_mistakes;
 	setlocale(LC_ALL, "RU-ru");
 
 	while (true) {
@@ -21,24 +22,29 @@ int main() {
 
 		string input_amount;
 		string play_again;
+		string maximum_mistakes_allowed;
 
 		if (language_choose) {
 			input_amount = "Input amount of problems to solve: ";
 			play_again = "\nIf you want to play again input 1, or any other number to exit:\n";
+			maximum_mistakes_allowed = "Maximal amount of incorrect answers per one task: ";
 		}
 		else {
 			input_amount = "Введите количество примеров для решения: ";
 			play_again = "Если хотите сыграть ещё раз, введите 1, или любое другое число чтобы выйти: ";
+			maximum_mistakes_allowed = "Максимальное количество неправильных ответов на один пример: ";
 		}
 
 		cout << input_amount;
 		cin >> amount;
+		cout << maximum_mistakes_allowed;
+		cin >> max_mistakes;
 
 		system("pause");
 
 		system("cls");
 
-		cout << generate_brain_trainer(amount, language_choose ? 'E' : 'R');
+		cout << generate_brain_trainer(amount, language_choose ? 'E' : 'R', max_mistakes);
 
 		cout << play_again;
 
