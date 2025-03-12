@@ -55,10 +55,10 @@ string generate_brain_trainer(int amount, char lang, int max_mistakes) {
 		create_problem(a, b, c, problem_type);
 
 		while (true) {
-			cout << "\n" << a << (problem_type ? " - " : " + ") << b
-				<< (problem_type ? " + " : " - ") << c << " = ";
+			cout << "\n" << a << (problem_type == 1 ? " - " : " + ") << b
+				<< (problem_type == 1 ? " + " : " - ") << c << " = ";
 
-			int right_answer = problem_type ? a - b + c : a + b - c;
+			int right_answer = problem_type == 1 ? a - b + c : a + b - c;
 
 			int user_input;
 			cin >> user_input;
@@ -163,7 +163,7 @@ string get_feedback_by_time(double time_per_task, char lang) {
 		feedbacks[2] = "Good time! ";
 		feedbacks[3] = "Not bad time! ";
 		feedbacks[4] = "Normal time. ";
-		feedbacks[5] = "Poor time. ";
+		feedbacks[5] = "But poor time. ";
 	}
 	else {
 		feedbacks[0] = "Лучшее время! ";
@@ -171,7 +171,7 @@ string get_feedback_by_time(double time_per_task, char lang) {
 		feedbacks[2] = "Хорошее время! ";
 		feedbacks[3] = "Неплохое время! ";
 		feedbacks[4] = "Нормальное время. ";
-		feedbacks[5] = "Не очень. ";
+		feedbacks[5] = "Но время не очень. ";
 	}
 
 	if (time_per_task <= 2.0) {
@@ -197,19 +197,26 @@ string get_feedback_by_time(double time_per_task, char lang) {
 }
 
 void create_problem(int& a, int& b, int& c, int type) {
-	if (type == 1) {
-		do {
-			a = get_random(2, 9);
-			b = get_random(1, a - 1);
-			c = get_random(1, 9);
-		} while (b >= a || b == c);
-	}
-	else {
-		do {
+	if (type == 1) { //a-b+c
+		while(true) { 
 			a = get_random(1, 9);
 			b = get_random(1, 9);
 			c = get_random(1, 9);
-		} while (c >= a + b || c == a || c == b);
+			if (a > b && b != c && a != b) {
+				break;
+			}
+		}
 	}
+	else { // a+b-c
+		while(true) {
+			a = get_random(1, 9);
+			b = get_random(1, 9);
+			c = get_random(1, 9);
+			if (c < (a + b) && a != b && a != c) {
+				break;
+			}
+		} 
+	}
+
 }
 
