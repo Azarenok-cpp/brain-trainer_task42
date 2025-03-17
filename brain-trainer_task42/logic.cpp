@@ -24,7 +24,7 @@ string generate_brain_trainer(int amount, char lang, int max_mistakes) {
 		your_time = "Your time: ";
 		its_about = ".\nIt is about ";
 		seconds_per_task = " second per task.";
-		tasks_amount = " Total amount: ";
+		tasks_amount = "\nTotal amount of tasks: ";
 		skip_task = "Skip!";
 
 	}
@@ -34,7 +34,7 @@ string generate_brain_trainer(int amount, char lang, int max_mistakes) {
 		your_time = "Ваше время: ";
 		its_about = ".\nЭто порядка ";
 		seconds_per_task = " секунд на пример.";
-		tasks_amount = " Всего примеров: ";
+		tasks_amount = "\nВсего примеров: ";
 		skip_task = "Пропустим.";
 	}
 
@@ -197,26 +197,27 @@ string get_feedback_by_time(double time_per_task, char lang) {
 }
 
 void create_problem(int& a, int& b, int& c, int type) {
-	if (type == 1) { //a-b+c
-		while(true) { 
-			a = get_random(1, 9);
-			b = get_random(1, 9);
-			c = get_random(1, 9);
-			if (a > b && b != c && a != b) {
-				break;
-			}
+	while (true) {
+		a = get_random(1, 9);
+		b = get_random(1, 9);
+		if (a != b) {
+			break;
 		}
 	}
-	else { // a+b-c
-		while(true) {
-			a = get_random(1, 9);
-			b = get_random(1, 9);
-			c = get_random(1, 9);
-			if (c < (a + b) && a != b && a != c) {
-				break;
-			}
-		} 
+
+	while (true) {
+		c = get_random(1, 9);
+		if (c != a && c != b) {
+			break;
+		}
 	}
 
+	if (type == 1 && a - b < 0) {
+		swap(a, b);
+	}
+
+	else if (b - c < 0) { 
+		swap(b, c); 
+	}
 }
 
