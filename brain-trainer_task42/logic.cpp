@@ -210,7 +210,7 @@ void create_problem(int& a, int& b, int& c, int type) {
 		if (c != a && c != b) {
 			break;
 		}
-	}
+	} //test
 
 	if (type == 1 && a - b < 0) {
 		swap(a, b);
