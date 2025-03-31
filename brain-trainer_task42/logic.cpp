@@ -1,8 +1,8 @@
 ﻿#include "logic.h"
 
-void create_problem(int& a, int& b, int& c, int type);
+void create_problem(int& a, int& b, int& c, bool type);
 string get_feedback_by_accuracy(int accuracy_percentage, char lang);
-string get_feedback_by_time(double time_per_task, char lang);
+string get_feedback_by_time(double time_per_task, char lang, int start_time);
 
 int get_random(int a, int b) {
 	return rand() % (b - a + 1) + a;
@@ -49,16 +49,16 @@ string generate_brain_trainer(int amount, char lang, int max_mistakes) {
 	{
 		bool mistake_made_before = false;
 		int mistakes_in_one_task = 0;
-		int problem_type = get_random(1, 2);
+		bool problem_type = get_random(0, 1);
 
 		int a, b, c;
 		create_problem(a, b, c, problem_type);
 
 		while (true) {
-			cout << "\n" << a << (problem_type == 1 ? " - " : " + ") << b
-				<< (problem_type == 1 ? " + " : " - ") << c << " = ";
+			cout << "\n" << i + 1 << ") " << a << (problem_type ? " - " : " + ") << b
+				<< (problem_type ? " + " : " - ") << c << " = ";
 
-			int right_answer = problem_type == 1 ? a - b + c : a + b - c;
+			int right_answer = problem_type ? a - b + c : a + b - c;
 
 			int user_input;
 			cin >> user_input;
@@ -97,7 +97,7 @@ string generate_brain_trainer(int amount, char lang, int max_mistakes) {
 	int accuracy_percentage = (1.0 - mistakes / amount) * 100;
 
 	string msg = get_feedback_by_accuracy(accuracy_percentage, lang);
-	msg += get_feedback_by_time(duration / amount, lang);
+	msg += get_feedback_by_time(duration / amount, lang, start_time);
 
 	msg += your_accuracy + to_string(accuracy_percentage) + "%.\n";
 	msg += your_time + formatted_time + its_about + to_string(duration / amount) + seconds_per_task;
@@ -154,7 +154,7 @@ string get_feedback_by_accuracy(int accuracy_percentage, char lang) {
 	return output;
 }
 
-string get_feedback_by_time(double time_per_task, char lang) {
+string get_feedback_by_time(double time_per_task, char lang, int start_time) {
 	string feedbacks[6];
 	string output;
 	if (lang == 'E') {
@@ -192,11 +192,15 @@ string get_feedback_by_time(double time_per_task, char lang) {
 	else {
 		output = feedbacks[5];
 	}
+	//output += "\nStart time: ";
+
+	//output += to_string();
+
 
 	return output;
 }
 
-void create_problem(int& a, int& b, int& c, int type) {
+void create_problem(int& a, int& b, int& c, bool type) {
 	while (true) {
 		a = get_random(1, 9);
 		b = get_random(1, 9);
@@ -210,14 +214,14 @@ void create_problem(int& a, int& b, int& c, int type) {
 		if (c != a && c != b) {
 			break;
 		}
-	} //test
+	}
 
-	if (type == 1 && a - b < 0) {
+	if (type && a < b) {
 		swap(a, b);
 	}
 
-	else if (b - c < 0) { 
-		swap(b, c); 
+	else if (b < c) {
+		swap(b, c);
 	}
 }
 
